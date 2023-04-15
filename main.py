@@ -1,3 +1,6 @@
+#Juan M. Araoz
+#Chesteraraoz12.0@gmail.com
+
 from fastapi import FastAPI
 import psycopg2
 import pandas as pd
@@ -16,14 +19,21 @@ connection = psycopg2.connect(host = conf['host'],
 cur = connection.cursor()
 
 
-#create instance of fastapi
+#Create instance of fastapi
 app = FastAPI()
 
 
-#Inicio
+#---------------------------------------------------------------------------------------------------------------
 @app.get('/')
 async def hello():
-      return 'WELCOME'
+      return '''WELCOME \n\n
+                Functions List: \n
+                -> get_max_duration/year/platform/duration_type\n
+                -> get_score_count/platform/scored/year\n
+                -> get_count_platform/platform\n
+                -> get_actor/platform/year\n
+                -> prod_per_county/tipo/pais/anio\n
+                -> /get_contents/rating'''
 
 
 #Function 1: return max duration movie name given YEAR, PLATFORM AND DURATION --> str
@@ -101,4 +111,3 @@ async def get_contents(rating):
 
           return int(x[0][0]+y[0][0]+z[0][0]+k[0][0])
 
-#
