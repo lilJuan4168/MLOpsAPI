@@ -2,7 +2,7 @@
 
 <h1 align=center>Individual Project Nº1</h1>
 
-<h3>ETL STEP </h3>
+<h3>ETL</h3>
 
 <p>In this part transformation and load was made as the following instructions indicate.</p>
 
@@ -22,8 +22,10 @@
 * Pyarrow(parquet engine)
 * Psycopg2
 
+<p align=center><img src=img/apiEndpoints.png><p>
+
 <p>The api querys were made using <b>psycopg2</b> module to comunicate with a remote postgresql database where the datasets were allocated.</p>
-<p>Function 2 was made using pandas  because ratings datasets CSVs combined was too big to upload to the remote database and github, so it was transformed to parquet format, thereby a 385mb CSV file was transformed in a 29.5mb parquet file to work well with pandas instead of sql. </p>
+<p>Function 2 endpoint was made using pandas  because ratings datasets CSVs combined was too big to upload to the remote database and github, so it was transformed to parquet format, thereby a 385mb CSV file was transformed in a 29.5mb parquet file to work well with pandas instead of sql.</p>
 
 <h3>DEPLOYMENT </h3>
 
@@ -31,5 +33,7 @@
 
 * Web Services: A free limited server, to build and deploy your sevices from github.
 * PostgreSQL: A free limited remote database.
+
+<p align=center><img src=img/renderDashboard.png><p>
 
 <p>To use postgresql services you need to have it installed in your pc because the sending of CSVs is done by local server to remote server. PROBLEM: The rating csv was too big for the remote server so it is not in the database, the remaindings CSVs are in the remote db.</p>
