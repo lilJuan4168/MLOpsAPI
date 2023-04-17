@@ -27,13 +27,13 @@ app = FastAPI()
 @app.get('/')
 async def hello():
       return '''WELCOME \n\n
-                Functions List: \n
+                Endpoints List: \n
                 -> get_max_duration/year/platform/duration_type\n
                 -> get_score_count/platform/scored/year\n
                 -> get_count_platform/platform\n
                 -> get_actor/platform/year\n
                 -> prod_per_county/tipo/pais/anio\n
-                -> /get_contents/rating'''
+                -> get_contents/rating'''
 
 
 #Function 1: return max duration movie name given YEAR, PLATFORM AND DURATION --> str
@@ -110,4 +110,10 @@ async def get_contents(rating):
           k = cur.fetchall()
 
           return int(x[0][0]+y[0][0]+z[0][0]+k[0][0])
+
+
+#Function 7 return 5 title base on titulo --> list
+@app.get('/get_recommendation/{titulo}')
+async def get_recommendation(titulo:str):
+        return ''
 
