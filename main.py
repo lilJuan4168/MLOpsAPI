@@ -2,9 +2,11 @@
 #Chesteraraoz12.0@gmail.com
 
 from fastapi import FastAPI
+from sklearn.cluster import KMeans
 import psycopg2
 import pandas as pd
 import json
+import pickle
 
 #Loading configuration data
 with open('config.json', 'r') as ld:
@@ -22,18 +24,11 @@ cur = connection.cursor()
 #Create instance of fastapi
 app = FastAPI()
 
-
 #---------------------------------------------------------------------------------------------------------------
 @app.get('/')
 async def hello():
-      return '''WELCOME \n\n
-                Endpoints List: \n
-                -> get_max_duration/year/platform/duration_type\n
-                -> get_score_count/platform/scored/year\n
-                -> get_count_platform/platform\n
-                -> get_actor/platform/year\n
-                -> prod_per_county/tipo/pais/anio\n
-                -> get_contents/rating'''
+      return 'WELCOME'
+               
 
 
 #Function 1: return max duration movie name given YEAR, PLATFORM AND DURATION --> str
@@ -115,5 +110,11 @@ async def get_contents(rating):
 #Function 7 return 5 title base on titulo --> list
 @app.get('/get_recommendation/{titulo}')
 async def get_recommendation(titulo:str):
-        return ''
+        dtml = pd.read_parquet('datasets/streamML.parquet')
+        with open('KMeansModel.pickle', 'rb') as model:
+                kmeans_model = pickle.load(model)  #ML MODEL
+        topredict = dtml[dtml['title'] == titulo][['score','type']].values[0]
+        predicted = kmeans_model.predict([topredict])
+        x =  dtml[dtml['labels'] == predicted[0]]['title'].head(5)
+        return list(x)
 
