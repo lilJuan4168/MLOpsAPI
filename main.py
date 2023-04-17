@@ -85,7 +85,7 @@ async def prod_per_county(tipo:str, pais:str, anio:int):
                           WHERE type_ = '{tipo}' and country like '%{pais}%' and release_year = {anio}
                           ;''')
           x = cur.fetchall()
-          return {'pais': pais, 'anio': anio, 'pelicula':x[0][0]}
+          return {'pais': pais, 'anio': anio, 'contenido':x[0][0]}
 
 
 #Function 6 return amount of all movies in steaming given a RATING --> int
