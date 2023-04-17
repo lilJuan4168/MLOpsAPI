@@ -44,12 +44,9 @@ def get_max_duration(year:int, platform:str, duration_type:str = 'min'):
 #Function 2 return the amount of movies given PLATFORM, higher than SCORE and YEAR --> int
 @app.get('/get_score_count/{platform}/{scored}/{year}') 
 def get_scored_count(platform:str, scored:float, year:int):
-          ratingsfile = pd.read_parquet('datasets/ratings_unified.parquet')
-          a = ratingsfile['timestamp']==year
-          r = ratingsfile['rating']>scored
-          x = ratingsfile[ratingsfile.movieId.str.startswith(pat=list(platform)[0],na=False)][(a) & (r)].shape
-          del ratingsfile
-          return x
+          ratingsfile = pd.read_parquet('datasets/ratings_unified2.parquet',columns=['rating','timestamp', 'movieId'])
+          x = ratingsfile[ratingsfile.movieId.str.startswith(pat=list(platform)[0],na=False)][(ratingsfile['timestamp']==year) & (ratingsfile['rating']>scored)].shape
+          return list(x)
 
 
 #Function 3 return the amount of movies in a given PLATFORM --> int 
@@ -68,15 +65,12 @@ def get_actor(platform:str, year:int):
                           WHERE release_year = {year}''')
           x = cur.fetchall()
           dt = pd.DataFrame(data=x, columns=['actors'])
-          del x
-          dt = dt['actors'].str.split(pat=',', expand=True)
-          dt = dt.to_numpy().reshape(-1,1)
-          data = pd.DataFrame(data=dt, columns=['actors'])
-          data = data.dropna()
-          del dt
+          dt = dt['actors'].str.split(pat=',', expand=True).to_numpy().reshape(-1,1)
+          #dt = dt.to_numpy().reshape(-1,1)
+          data = pd.DataFrame(data=dt, columns=['actors']).dropna()
+          #data = data.dropna()
           z = str(data['actors'].value_counts().head(1))
           z = z.split(sep='\n')
-          del data
           #z = z[0].split(sep=' ')
           return z[0]
 
