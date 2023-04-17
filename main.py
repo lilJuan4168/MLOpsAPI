@@ -33,7 +33,7 @@ async def hello():
 
 #Function 1: return max duration movie name given YEAR, PLATFORM AND DURATION --> str
 @app.get('/get_max_duration/{year}/{platform}/{duration_type}') 
-async def get_max_duration(year:int, platform:str, duration_type:str = 'min'):
+def get_max_duration(year:int, platform:str, duration_type:str = 'min'):
           cur.execute(f'''SELECT title FROM {platform} 
                           WHERE release_year = {year} and type_ = 'movie' and duration_type = duration_type
                           ORDER BY duration_int desc limit 1;''')
@@ -43,7 +43,7 @@ async def get_max_duration(year:int, platform:str, duration_type:str = 'min'):
 
 #Function 2 return the amount of movies given PLATFORM, higher than SCORE and YEAR --> int
 @app.get('/get_score_count/{platform}/{scored}/{year}') 
-async def get_scored_count(platform:str, scored:float, year:int):
+def get_scored_count(platform:str, scored:float, year:int):
           ratingsfile = pd.read_parquet('datasets/ratings_unified.parquet')
           a = ratingsfile['timestamp']==year
           r = ratingsfile['rating']>scored
@@ -53,7 +53,7 @@ async def get_scored_count(platform:str, scored:float, year:int):
 
 #Function 3 return the amount of movies in a given PLATFORM --> int 
 @app.get('/get_count_platform/{platform}') 
-async def get_count_platform(platform:str):
+def get_count_platform(platform:str):
           cur.execute(f'''SELECT COUNT(title) 
                           FROM {platform} WHERE type_ = 'movie';''' )
           x = cur.fetchall()
@@ -62,7 +62,7 @@ async def get_count_platform(platform:str):
 
 #Function 4 return the most repeated actor given a PLATFORM and YEAR --> str
 @app.get('/get_actor/{platform}/{year}') 
-async def get_actor(platform:str, year:int):
+def get_actor(platform:str, year:int):
           cur.execute(f'''SELECT cast_ FROM {platform} 
                           WHERE release_year = {year}''')
           x = cur.fetchall()
@@ -73,13 +73,13 @@ async def get_actor(platform:str, year:int):
           data = data.dropna()
           z = str(data['actors'].value_counts().head(1))
           z = z.split(sep='\n')
-          z = z[1].split(sep=' ')
+          #z = z[0].split(sep=' ')
           return z[0]
 
 
 #Function 5 return the amount of movies given TIPO, PAIS, ANIO --> dic, keys(pais,anio,pelicula)
 @app.get('/prod_per_county/{tipo}/{pais}/{anio}') 
-async def prod_per_county(tipo:str, pais:str, anio:int):
+def prod_per_county(tipo:str, pais:str, anio:int):
           cur.execute(f'''SELECT COUNT(title) as peliculas 
                           FROM amazon 
                           WHERE type_ = '{tipo}' and country like '%{pais}%' and release_year = {anio}
@@ -90,7 +90,7 @@ async def prod_per_county(tipo:str, pais:str, anio:int):
 
 #Function 6 return amount of all movies in steaming given a RATING --> int
 @app.get('/get_contents/{rating}') 
-async def get_contents(rating):
+def get_contents(rating):
           cur.execute(f'''SELECT COUNT(title) FROM amazon
                           WHERE rating = '{rating}';''')
           x = cur.fetchall()
@@ -109,7 +109,7 @@ async def get_contents(rating):
 
 #Function 7 return 5 title base on titulo --> list
 @app.get('/get_recommendation/{titulo}')
-async def get_recommendation(titulo:str):
+def get_recommendation(titulo:str):
         dtml = pd.read_parquet('datasets/streamML.parquet')
         with open('KMeansModel.pickle', 'rb') as model:
                 kmeans_model = pickle.load(model)  #ML MODEL
