@@ -26,7 +26,7 @@ app = FastAPI()
 
 #---------------------------------------------------------------------------------------------------------------
 @app.get('/')
-async def hello():
+def hello():
       return 'WELCOME'
                
 
@@ -46,7 +46,7 @@ def get_max_duration(year:int, platform:str, duration_type:str = 'min'):
 def get_scored_count(platform:str, scored:float, year:int):
           ratingsfile = pd.read_parquet('datasets/ratings_unified2.parquet',columns=['rating','timestamp', 'movieId'])
           x = ratingsfile[ratingsfile.movieId.str.startswith(pat=list(platform)[0],na=False)][(ratingsfile['timestamp']==year) & (ratingsfile['rating']>scored)].shape
-          return list(x)
+          return x[0]
 
 
 #Function 3 return the amount of movies in a given PLATFORM --> int 
