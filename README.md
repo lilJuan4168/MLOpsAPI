@@ -4,17 +4,17 @@
 
 <h3>ETL</h3>
 
-<p>In this part transformation and load was made as the following instructions indicate.</p>
+<p>In this part the transformation and load was made as the following instructions indicate.</p>
 
 * Generate 'id' attribute.
 * Fill null values in ratings column with 'G'.
 * Dates in format AAAA-mm-dd.
-* Attribures containing text to lower case.
+* Attributes containing text to lower case.
 * Divide column duration.
 
 <h3>API </H3>
 
-<p>This part was made using the followings frameworks and modules.</p>
+<p>This part was made using the following frameworks and modules.</p>
 
 * FastAPI
 * PostgreSQL
@@ -25,7 +25,7 @@
 <p align=center><img src=img/newDocs.png><p>
 
 <p>The api querys were made using <b>psycopg2</b> module to comunicate with a remote postgresql database where the datasets were allocated.</p>
-<p>Function 2 endpoint was made using pandas  because ratings datasets CSVs combined was too big to upload to the remote database and github, so it was transformed to parquet format, thereby a 385mb CSV file was transformed in a 29.5mb parquet file to work well with pandas instead of sql.</p>
+<p>Function 2 endpoint was made using pandas  because ratings dataset CSV combined was too big to upload to the remote database and github, so it was transformed to parquet format, thereby a 385mb CSV file was transformed in a 29.5mb parquet file to work well with pandas instead of sql.</p>
 
 <h3>DEPLOYMENT </h3>
 
@@ -69,13 +69,13 @@
 
 <p align=center><img src=img/spacejungle-dt.png><p>
 
-<p>With 'space jungle' it returns only 'tv show' types and with the highest scores.</p>
+<p>With 'space jungle' it returns only 'tv show' types with the highest scores.</p>
 
 <p align=center><img src=img/themanwhokillhitler.png><p>
 
 <p align=center><img src=img/themanwhokillshitler-dt.png><p>
 
-<p>Here it returns only 'movies' types with the highest socores.</p>
+<p>Here it returns only 'movies' types with the highest scores.</p>
 
 
 
