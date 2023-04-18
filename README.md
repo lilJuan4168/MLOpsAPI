@@ -22,7 +22,7 @@
 * Pyarrow(parquet engine)
 * Psycopg2
 
-<p align=center><img src=img/apiEndpoints.png><p>
+<p align=center><img src=img/newDocs.png><p>
 
 <p>The api querys were made using <b>psycopg2</b> module to comunicate with a remote postgresql database where the datasets were allocated.</p>
 <p>Function 2 endpoint was made using pandas  because ratings datasets CSVs combined was too big to upload to the remote database and github, so it was transformed to parquet format, thereby a 385mb CSV file was transformed in a 29.5mb parquet file to work well with pandas instead of sql.</p>
@@ -41,14 +41,14 @@
 <h3>EDA</h3>
 <p>In this part exploratory analysis was made to decide what attribute is necessary for the ml model.</p>
 
-<p align=center><img src=img/heatmap.png><p>
+<p align=center><img src=img/heatmap.png width=300 height=300><p>
 
 <p>Score and Type have been chosen for the ml model because its correlations are the lowest.</p>
 
 <h3>ML</h3>
 <p>The model Kmeans have been chosen for this recommender system, it is a cluster model to group attributes, label it and make prediction base on the labels.</p>
 
-<p align=center><img src=img/clusterml.png><p>
+<p align=center><img src=img/clusterml.png width=300 height=300><p>
 
 <p>It is a simple 3 cluster Kmeans model, where one cluster group only the 'tv show' type instances, and the remainding two the 'movie' instances group by score, it works in the following manner.</p>
 
@@ -58,3 +58,24 @@
 <li>Search and select the movies with the specific label ordered by score.
 </li>
 </ol>
+
+<p align=center><img src=img/kmeansgraph.png><p>
+
+<p>Kmeans graph of 3 clusters.</p>
+
+<p>Example in use of the ML model.</p>
+
+<p align=center><img src=img/spacejungle.png><p>
+
+<p align=center><img src=img/spacejungle-dt.png><p>
+
+<p>With 'space jungle' it returns only 'tv show' types and with the highest scores.</p>
+
+<p align=center><img src=img/themanwhokillhitler.png><p>
+
+<p align=center><img src=img/themanwhokillshitler-dt.png><p>
+
+<p>Here it returns only 'movies' types with the highest socores.</p>
+
+
+
