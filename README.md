@@ -2,7 +2,23 @@
 
 <h1 align=center>Individual Project Nº1</h1>
 
-<h3>ETL</h3>
+<p>The objetive of this project is to make an API for streaming movie platforms, and successfuly deploy it on the cloud, in this case <b>RENDER</b> cloud provider was used to deploy a api server and a postgres database.</p>
+
+<p><b>Original CSV datasets source:</b>https://drive.google.com/drive/folders/1b49OVFJpjPPA1noRBBi1hSmMThXmNzxn?usp=drive_link</p>
+
+<p>For cloud services cost reasons everything was put in a docker container, for anyone can easily run it in localhost with the followings commands</p>
+
+<pre>
+#To deploy it
+docker compose up
+
+#To close it
+docker compose down
+</pre>
+
+
+
+<h2>ETL</h2>
 
 <p>In this part the transformation and load was made as the following instructions indicate.</p>
 
@@ -12,7 +28,7 @@
 * Attributes containing text to lower case.
 * Divide column duration.
 
-<h3>API </H3>
+<h2>API </h2>
 
 <p>This part was made using the following frameworks and modules.</p>
 
@@ -27,7 +43,7 @@
 <p>The api querys were made using <b>psycopg2</b> module to comunicate with a remote postgresql database where the datasets were allocated.</p>
 <p>Function 2 endpoint was made using pandas  because ratings dataset CSV combined was too big to upload to the remote database and github, so it was transformed to parquet format, thereby a 385mb CSV file was transformed in a 29.5mb parquet file to work well with pandas instead of sql.</p>
 
-<h3>DEPLOYMENT </h3>
+<h2>DEPLOYMENT </h2>
 
 <p>Deployment was made using <b>RENDER</b> and the following services.</p>
 
@@ -38,14 +54,14 @@
 
 <p>To use postgresql services you need to have it installed in your pc because the sending of CSVs is done by local server to remote server. PROBLEM: The rating csv was too big for the remote server so it is not in the database, the remaindings CSVs are in the remote db.</p>
 
-<h3>EDA</h3>
+<h2>EDA</h2>
 <p>In this part exploratory analysis was made to decide what attribute is necessary for the ml model.</p>
 
 <p align=center><img src=img/heatmap.png width=300 height=300><p>
 
 <p>Score and Type have been chosen for the ml model because its correlations are the lowest.</p>
 
-<h3>ML</h3>
+<h2>ML</h2>
 <p>The model Kmeans have been chosen for this recommender system, it is a cluster model to group attributes, label it and make prediction base on the labels.</p>
 
 <p align=center><img src=img/clusterml.png width=300 height=300><p>
