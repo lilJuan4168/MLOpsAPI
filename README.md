@@ -9,10 +9,23 @@
 <p>For cloud services cost reasons everything was put in a docker container, for anyone can easily run it in localhost with the followings commands</p>
 
 <pre>
-#To deploy it
+#deploy postgresdb
 docker compose up
 
-#To close it
+#install dependencies
+apt install -y postgresql-client
+pip install -r requirements.txt
+
+#create table in streaming database
+./script.sh
+
+#fill all tables with datasets
+python3 datasets_loader.py
+
+#start the API
+uvicorn main:app --port 8000 --reload
+
+#-----------------To close it ---------------------
 docker compose down
 </pre>
 
