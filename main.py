@@ -47,7 +47,8 @@ def get_max_duration(year:int, platform:str, duration_type:str):
 #Function 2: return the amount of movies given PLATFORM, higher than SCORE and YEAR --> int
 @app.get('/get_score_count/{platform}/{scored}/{year}') 
 def get_scored_count(platform:str, scored:float, year:int):
-          cur.execute(f"""SELECT COUNT(mv.id) FROM movies_and_series mv, ratings r
+          cur.execute(f"""SELECT COUNT(mv.id) FROM movies_and_series mv
+                          INNER JOIN ratings r ON mv.id = r.movieId
                           WHERE mv.release_year = {year}
                           AND mv.platform = '{platform}'
                           AND r.rating = {scored};""")
